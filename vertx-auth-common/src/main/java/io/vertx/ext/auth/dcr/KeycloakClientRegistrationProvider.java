@@ -6,11 +6,9 @@ import io.vertx.ext.auth.authentication.TokenCredentials;
 
 public class KeycloakClientRegistrationProvider implements ClientRegistrationProvider {
 
-  private final DCRRequest request;
   private final TokenCredentials tokenCredentials;
 
-  public KeycloakClientRegistrationProvider(DCRRequest request, TokenCredentials tokenCredentials) {
-    this.request = request;
+  public KeycloakClientRegistrationProvider(TokenCredentials tokenCredentials) {
     this.tokenCredentials = tokenCredentials;
   }
 
