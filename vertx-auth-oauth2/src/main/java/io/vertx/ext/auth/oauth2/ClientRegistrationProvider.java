@@ -1,7 +1,4 @@
-package io.vertx.ext.auth.dcr;
-
-import io.vertx.ext.auth.DCRRequest;
-import io.vertx.ext.auth.DCRResponse;
+package io.vertx.ext.auth.oauth2;
 
 public interface ClientRegistrationProvider {
 

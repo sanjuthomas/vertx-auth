@@ -1,11 +1,11 @@
-package io.vertx.ext.auth;
+package io.vertx.ext.auth.oauth2;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.JsonArray;
 
 /**
- * Converter and mapper for {@link io.vertx.ext.auth.DCRResponse}.
- * NOTE: This class has been automatically generated from the {@link io.vertx.ext.auth.DCRResponse} original class using Vert.x codegen.
+ * Converter and mapper for {@link io.vertx.ext.auth.oauth2.DCRResponse}.
+ * NOTE: This class has been automatically generated from the {@link io.vertx.ext.auth.oauth2.DCRResponse} original class using Vert.x codegen.
  */
 public class DCRResponseConverter {
 

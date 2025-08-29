@@ -47,8 +47,35 @@ public final class SimpleHttpClient {
     this.userAgent = userAgent;
   }
 
+  public SimpleHttpClient(Vertx vertx, HttpClientOptions options) {
+    this(vertx, "default-user-agent", options);
+  }
+
+
   public Future<Void> close() {
     return client.close();
+  }
+
+  public static Buffer jsonToQuery(JsonObject json) {
+    Buffer buffer = Buffer.buffer();
+
+    try {
+      for (Map.Entry<String, ?> kv : json) {
+        if (buffer.length() != 0) {
+          buffer.appendByte((byte) '&');
+        }
+        buffer.appendString(URLEncoder.encode(kv.getKey(), "UTF-8"));
+        buffer.appendByte((byte) '=');
+        Object v = kv.getValue();
+        if (v != null) {
+          buffer.appendString(URLEncoder.encode(v.toString(), "UTF-8"));
+        }
+      }
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
+
+    return buffer;
   }
 
   public Future<SimpleHttpResponse> fetch(HttpMethod method, String url, JsonObject headers, Buffer payload) {
@@ -78,28 +105,6 @@ public final class SimpleHttpClient {
 
     // create a request
     return makeRequest(options, payload);
-  }
-
-  public static Buffer jsonToQuery(JsonObject json) {
-    Buffer buffer = Buffer.buffer();
-
-    try {
-      for (Map.Entry<String, ?> kv : json) {
-        if (buffer.length() != 0) {
-          buffer.appendByte((byte) '&');
-        }
-        buffer.appendString(URLEncoder.encode(kv.getKey(), "UTF-8"));
-        buffer.appendByte((byte) '=');
-        Object v = kv.getValue();
-        if (v != null) {
-          buffer.appendString(URLEncoder.encode(v.toString(), "UTF-8"));
-        }
-      }
-    } catch (UnsupportedEncodingException e) {
-      throw new RuntimeException(e);
-    }
-
-    return buffer;
   }
 
   public static @Nullable JsonObject queryToJson(Buffer query) throws UnsupportedEncodingException {

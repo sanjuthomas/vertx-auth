@@ -1,4 +1,4 @@
-package io.vertx.ext.auth;
+package io.vertx.ext.auth.oauth2;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.json.annotations.JsonGen;
