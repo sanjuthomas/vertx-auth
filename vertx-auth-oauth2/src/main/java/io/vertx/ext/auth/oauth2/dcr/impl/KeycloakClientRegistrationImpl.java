@@ -10,13 +10,11 @@ import io.vertx.ext.auth.oauth2.dcr.KeycloakClientRegistration;
 
 public final class KeycloakClientRegistrationImpl implements KeycloakClientRegistration {
   private final Vertx vertx;
-  private final TokenCredentials tokenCredentials;
   private final SimpleHttpClient simpleHttpClient;
 
-  public KeycloakClientRegistrationImpl(Vertx vertx, TokenCredentials tokenCredentials) {
+  public KeycloakClientRegistrationImpl(Vertx vertx, HttpClientOptions httpClientOptions) {
     this.vertx = vertx;
-    this.tokenCredentials = tokenCredentials;
-    this.simpleHttpClient = new SimpleHttpClient(vertx, new HttpClientOptions());
+    this.simpleHttpClient = new SimpleHttpClient(vertx, "dcr-client", httpClientOptions);
   }
 
   @Override

@@ -46,12 +46,6 @@ public final class SimpleHttpClient {
     this.client = vertx.createHttpClient(options);
     this.userAgent = userAgent;
   }
-
-  public SimpleHttpClient(Vertx vertx, HttpClientOptions options) {
-    this(vertx, "default-user-agent", options);
-  }
-
-
   public Future<Void> close() {
     return client.close();
   }

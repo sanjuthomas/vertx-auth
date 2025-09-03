@@ -2,6 +2,7 @@ package io.vertx.ext.auth.oauth2;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.json.annotations.JsonGen;
+import io.vertx.core.http.HttpClientOptions;
 
 @DataObject
 @JsonGen(publicConverter = false)
@@ -22,6 +23,11 @@ public class DCROptions {
    * In Keycloak it's clients-registrations/default
    */
   private String path;
+
+
+  private String initialAccessToken;
+
+  private HttpClientOptions httpClientOptions = new HttpClientOptions();
 
 
 
