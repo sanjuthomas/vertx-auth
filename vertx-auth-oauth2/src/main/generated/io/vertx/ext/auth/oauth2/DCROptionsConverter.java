@@ -12,6 +12,8 @@ public class DCROptionsConverter {
    static void fromJson(Iterable<java.util.Map.Entry<String, Object>> json, DCROptions obj) {
     for (java.util.Map.Entry<String, Object> member : json) {
       switch (member.getKey()) {
+        case "httpClientOptions":
+          break;
       }
     }
   }
@@ -21,5 +23,8 @@ public class DCROptionsConverter {
   }
 
    static void toJson(DCROptions obj, java.util.Map<String, Object> json) {
+    if (obj.getHttpClientOptions() != null) {
+      json.put("httpClientOptions", obj.getHttpClientOptions().toJson());
+    }
   }
 }
