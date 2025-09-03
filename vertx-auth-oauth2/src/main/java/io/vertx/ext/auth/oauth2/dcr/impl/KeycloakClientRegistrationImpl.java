@@ -2,7 +2,6 @@ package io.vertx.ext.auth.oauth2.dcr.impl;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClientOptions;
-import io.vertx.ext.auth.authentication.TokenCredentials;
 import io.vertx.ext.auth.impl.http.SimpleHttpClient;
 import io.vertx.ext.auth.oauth2.DCRRequest;
 import io.vertx.ext.auth.oauth2.DCRResponse;

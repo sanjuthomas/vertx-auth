@@ -6,7 +6,7 @@ import io.vertx.core.http.HttpClientOptions;
 
 @DataObject
 @JsonGen(publicConverter = false)
-public class DCROptions {
+public final class DCROptions {
 
   /**
    * The base url of the OIDC provider like Keycloak.
@@ -25,10 +25,10 @@ public class DCROptions {
   private String path;
 
 
+  /**
+   * Initial access token to authenticate with the OIDC provider.
+   */
   private String initialAccessToken;
-
-  private HttpClientOptions httpClientOptions = new HttpClientOptions();
-
 
 
 }
