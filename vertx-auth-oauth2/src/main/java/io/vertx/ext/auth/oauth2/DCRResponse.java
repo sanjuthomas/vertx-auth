@@ -12,97 +12,90 @@ package io.vertx.ext.auth.oauth2;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.json.annotations.JsonGen;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
 @DataObject
 @JsonGen(publicConverter = false)
 public class DCRResponse {
 
-  /**
-   * A system generated unique identifier.
-   */
-  private String id;
+  private final JsonObject data;
 
-  /**
-   * User given client identifier.
-   */
-  private String clientId;
-  /**
-   * Whether the client is currently enabled or not.
-   */
-  private boolean enabled;
+  public DCRResponse() {
+    this.data = new JsonObject();
+  }
 
-  /**
-   * Client authenticator type, by default it is client-secret.
-   */
-  private String clientAuthenticatorType;
-
-  /**
-   * Client secret for client_secret_post or client_secret_basic.
-   */
-  private String secret;
-
-  /**
-   * RegistrationAccessToken is used for subsequent communication with Keycloak to
-   * GET or DELETE the client.
-   */
-  private String registrationAccessToken;
+  public DCRResponse(DCRResponse other) {
+    this.data = other == null ? new JsonObject() : other.data.copy();
+  }
 
   public DCRResponse(JsonObject json) {
-    DCRResponseConverter.fromJson(json, this);
+    this.data = json == null ? new JsonObject() : json.copy();
   }
 
   public JsonObject toJson() {
-    final JsonObject json = new JsonObject();
-    DCRResponseConverter.toJson(this, json);
-    return json;
+    return data.copy();
+  }
+
+  public Object get(String key) {
+    return data.getValue(key);
+  }
+
+  public String getString(String key) {
+    return data.getString(key);
+  }
+
+  public Boolean getBoolean(String key) {
+    return data.getBoolean(key);
+  }
+
+  public Number getNumber(String key) {
+    Object n = get(key);
+    return (n instanceof Number) ? (Number) n : null;
+  }
+
+  public JsonObject getObject(String key) {
+    return data.getJsonObject(key);
+  }
+
+  public JsonArray getArray(String key) {
+    return data.getJsonArray(key);
+  }
+
+  public JsonObject asJson() {
+    return data.copy();
   }
 
   public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
+    return data.getString("id");
   }
 
   public String getClientId() {
-    return clientId;
-  }
-
-  public void setClientId(String clientId) {
-    this.clientId = clientId;
-  }
-
-  public boolean isEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(boolean isEnabled) {
-    this.enabled = isEnabled;
-  }
-
-  public String getClientAuthenticatorType() {
-    return clientAuthenticatorType;
-  }
-
-  public void setClientAuthenticatorType(String clientAuthenticatorType) {
-    this.clientAuthenticatorType = clientAuthenticatorType;
+    return data.getString("clientId");
   }
 
   public String getSecret() {
-    return secret;
-  }
-
-  public void setSecret(String secret) {
-    this.secret = secret;
+    return data.getString("secret");
   }
 
   public String getRegistrationAccessToken() {
-    return registrationAccessToken;
+    return data.getString("registrationAccessToken");
   }
 
-  public void setRegistrationAccessToken(String registrationAccessToken) {
-    this.registrationAccessToken = registrationAccessToken;
+  public Boolean isEnabled() {
+    return data.getBoolean("enabled");
   }
+
+  public JsonArray getRedirectUris() {
+    return data.getJsonArray("redirectUris");
+  }
+
+  public JsonObject getDefaultClientScopes() {
+    return data.getJsonObject("defaultClientScopes");
+  }
+
+  public String getClientAuthenticatorType() {
+    return data.getString("clientAuthenticatorType");
+  }
+
 }

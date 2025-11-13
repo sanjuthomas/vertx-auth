@@ -10,13 +10,13 @@ import io.vertx.ext.auth.oauth2.DCRResponse;
 public class DCRResponseTest {
 
   private static final String DCR_RESPPONSE_STRING = "{\n" +
-    "  \"id\": \"12345\",\n" +
-    "  \"clientId\": \"my-client-id\",\n" +
-    "  \"enabled\": true,\n" +
-    "  \"clientAuthenticatorType\": \"client-secret\",\n" +
-    "  \"secret\": \"my-secret\",\n" +
-    "  \"registrationAccessToken\": \"my-registration-access-token\"\n" +
-    "}";
+      "  \"id\": \"12345\",\n" +
+      "  \"clientId\": \"my-client-id\",\n" +
+      "  \"enabled\": true,\n" +
+      "  \"clientAuthenticatorType\": \"client-secret\",\n" +
+      "  \"secret\": \"my-secret\",\n" +
+      "  \"registrationAccessToken\": \"my-registration-access-token\"\n" +
+      "}";
   private DCRResponse dcrResponse;
 
   @Before
