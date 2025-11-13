@@ -42,6 +42,16 @@ public class DCRResponseConverter {
             obj.setRegistrationAccessToken((String)member.getValue());
           }
           break;
+        case "redirectUris":
+          if (member.getValue() instanceof JsonArray) {
+            java.util.ArrayList<java.lang.String> list =  new java.util.ArrayList<>();
+            ((Iterable<Object>)member.getValue()).forEach( item -> {
+              if (item instanceof String)
+                list.add((String)item);
+            });
+            obj.setRedirectUris(list);
+          }
+          break;
       }
     }
   }
@@ -66,6 +76,11 @@ public class DCRResponseConverter {
     }
     if (obj.getRegistrationAccessToken() != null) {
       json.put("registrationAccessToken", obj.getRegistrationAccessToken());
+    }
+    if (obj.getRedirectUris() != null) {
+      JsonArray array = new JsonArray();
+      obj.getRedirectUris().forEach(item -> array.add(item));
+      json.put("redirectUris", array);
     }
   }
 }

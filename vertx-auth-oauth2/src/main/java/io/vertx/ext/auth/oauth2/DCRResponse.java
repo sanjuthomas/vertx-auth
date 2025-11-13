@@ -14,27 +14,61 @@ import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.json.annotations.JsonGen;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import java.util.List;
 
 @DataObject
 @JsonGen(publicConverter = false)
 public class DCRResponse {
 
-  private final JsonObject data;
+  /**
+   * The entire payload
+   */
+  private JsonObject data;
 
-  public DCRResponse() {
-    this.data = new JsonObject();
-  }
+  /**
+   * A system generated unique identifier.
+   */
+  private String id;
 
-  public DCRResponse(DCRResponse other) {
-    this.data = other == null ? new JsonObject() : other.data.copy();
-  }
+  /**
+   * User given client identifier.
+   */
+  private String clientId;
+  /**
+   * Whether the client is currently enabled or not.
+   */
+  private boolean enabled;
+
+  /**
+   * Client authenticator type, by default it is client-secret.
+   */
+  private String clientAuthenticatorType;
+
+  /**
+   * Client secret for client_secret_post or client_secret_basic.
+   */
+  private String secret;
+
+  /**
+   * Redirect URIs the client provided during the registration
+   */
+  private List<String> redirectUris;
+
+  /**
+   * RegistrationAccessToken is used for subsequent communication with Keycloak to
+   * GET or DELETE the client.
+   */
+  private String registrationAccessToken;
 
   public DCRResponse(JsonObject json) {
-    this.data = json == null ? new JsonObject() : json.copy();
+    DCRResponseConverter.fromJson(json, this);
+    this.data = json;
   }
 
   public JsonObject toJson() {
-    return data.copy();
+    final JsonObject json = new JsonObject();
+    DCRResponseConverter.toJson(this, json);
+    return json;
   }
 
   public Object get(String key) {
@@ -45,57 +79,68 @@ public class DCRResponse {
     return data.getString(key);
   }
 
-  public Boolean getBoolean(String key) {
+  public boolean getBoolean(String key) {
     return data.getBoolean(key);
-  }
-
-  public Number getNumber(String key) {
-    Object n = get(key);
-    return (n instanceof Number) ? (Number) n : null;
-  }
-
-  public JsonObject getObject(String key) {
-    return data.getJsonObject(key);
   }
 
   public JsonArray getArray(String key) {
     return data.getJsonArray(key);
   }
 
-  public JsonObject asJson() {
-    return data.copy();
+  public String getId() {
+    return id;
   }
 
-  public String getId() {
-    return data.getString("id");
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getClientId() {
-    return data.getString("clientId");
+    return clientId;
   }
 
-  public String getSecret() {
-    return data.getString("secret");
+  public void setClientId(String clientId) {
+    this.clientId = clientId;
   }
 
-  public String getRegistrationAccessToken() {
-    return data.getString("registrationAccessToken");
+  public boolean isEnabled() {
+    return enabled;
   }
 
-  public Boolean isEnabled() {
-    return data.getBoolean("enabled");
-  }
-
-  public JsonArray getRedirectUris() {
-    return data.getJsonArray("redirectUris");
-  }
-
-  public JsonObject getDefaultClientScopes() {
-    return data.getJsonObject("defaultClientScopes");
+  public void setEnabled(boolean isEnabled) {
+    this.enabled = isEnabled;
   }
 
   public String getClientAuthenticatorType() {
-    return data.getString("clientAuthenticatorType");
+    return clientAuthenticatorType;
+  }
+
+  public void setClientAuthenticatorType(String clientAuthenticatorType) {
+    this.clientAuthenticatorType = clientAuthenticatorType;
+  }
+
+  public String getSecret() {
+    return secret;
+  }
+
+  public void setSecret(String secret) {
+    this.secret = secret;
+  }
+
+  public String getRegistrationAccessToken() {
+    return registrationAccessToken;
+  }
+
+  public void setRegistrationAccessToken(String registrationAccessToken) {
+    this.registrationAccessToken = registrationAccessToken;
+  }
+
+  public List<String> getRedirectUris() {
+    return redirectUris;
+  }
+
+  public void setRedirectUris(List<String> redirectUris) {
+    this.redirectUris = redirectUris;
   }
 
 }
