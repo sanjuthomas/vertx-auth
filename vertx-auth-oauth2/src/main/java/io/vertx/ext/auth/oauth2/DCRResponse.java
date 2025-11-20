@@ -12,11 +12,18 @@ package io.vertx.ext.auth.oauth2;
 
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.codegen.json.annotations.JsonGen;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import java.util.List;
 
 @DataObject
 @JsonGen(publicConverter = false)
 public class DCRResponse {
+
+  /**
+   * The entire payload
+   */
+  private JsonObject data;
 
   /**
    * A system generated unique identifier.
@@ -43,6 +50,11 @@ public class DCRResponse {
   private String secret;
 
   /**
+   * Redirect URIs the client provided during the registration
+   */
+  private List<String> redirectUris;
+
+  /**
    * RegistrationAccessToken is used for subsequent communication with Keycloak to
    * GET or DELETE the client.
    */
@@ -50,12 +62,29 @@ public class DCRResponse {
 
   public DCRResponse(JsonObject json) {
     DCRResponseConverter.fromJson(json, this);
+    this.data = json;
   }
 
   public JsonObject toJson() {
     final JsonObject json = new JsonObject();
     DCRResponseConverter.toJson(this, json);
     return json;
+  }
+
+  public Object get(String key) {
+    return data.getValue(key);
+  }
+
+  public String getString(String key) {
+    return data.getString(key);
+  }
+
+  public boolean getBoolean(String key) {
+    return data.getBoolean(key);
+  }
+
+  public JsonArray getArray(String key) {
+    return data.getJsonArray(key);
   }
 
   public String getId() {
@@ -105,4 +134,13 @@ public class DCRResponse {
   public void setRegistrationAccessToken(String registrationAccessToken) {
     this.registrationAccessToken = registrationAccessToken;
   }
+
+  public List<String> getRedirectUris() {
+    return redirectUris;
+  }
+
+  public void setRedirectUris(List<String> redirectUris) {
+    this.redirectUris = redirectUris;
+  }
+
 }
